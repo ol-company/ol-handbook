@@ -1,0 +1,20 @@
+{
+  "teams": [
+    {
+      "name": "platform",
+      "description": "Hạ tầng, build, CI/CD, vận hành (ol-infra, ol-build-tooling, .github)"
+    },
+    {
+      "name": "backend",
+      "description": "Các service backend, BFF và thư viện dùng chung"
+    },
+    {
+      "name": "frontend",
+      "description": "Ứng dụng web quản trị"
+    },
+    {
+      "name": "security",
+      "description": "Review bắt buộc cho IAM, xác thực, hạ tầng production"
+    }
+  ]
+}

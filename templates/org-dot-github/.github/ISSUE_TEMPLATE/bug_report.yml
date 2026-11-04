@@ -1,0 +1,30 @@
+name: Báo lỗi
+description: Hành vi sai so với mong đợi
+title: "fix: <mô tả ngắn>"
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Môi trường
+      options: [local, dev, staging, production]
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Các bước tái hiện
+      placeholder: "1. Đăng nhập bằng ...\n2. Mở ...\n3. Thấy lỗi ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Kết quả mong đợi và kết quả thực tế
+    validations:
+      required: true
+  - type: input
+    id: trace
+    attributes:
+      label: trace_id (nếu có)
+      description: Lấy từ header phản hồi hoặc log. Không dán token/mật khẩu.

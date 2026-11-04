@@ -1,0 +1,6 @@
+# Tắt issue trống để mọi issue đi qua form có cấu trúc
+blank_issues_enabled: false
+contact_links:
+  - name: Báo cáo lỗ hổng bảo mật
+    url: https://docs.github.com/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability
+    about: Không tạo issue công khai cho lỗ hổng bảo mật. Dùng tính năng "Report a vulnerability" trong tab Security của repo.

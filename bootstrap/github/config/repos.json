@@ -1,0 +1,81 @@
+{
+  "templateRepo": "ol-repo-template",
+  "repos": [
+    {
+      "name": ".github",
+      "description": "Hồ sơ Organization và file cộng đồng mặc định",
+      "seed": "templates/org-dot-github",
+      "teams": { "platform": "maintain" },
+      "codeowners": ["* @{org}/platform"]
+    },
+    {
+      "name": "ol-repo-template",
+      "description": "Template cho mọi repo mới của OL-Platform",
+      "seed": "templates/repo-template",
+      "isTemplate": true,
+      "teams": { "platform": "maintain" },
+      "codeowners": ["* @{org}/platform"]
+    },
+    {
+      "name": "ol-handbook",
+      "description": "Kiến trúc, hướng dẫn từng bước, runbook (docs-as-code)",
+      "seed": ".",
+      "teams": { "platform": "maintain", "backend": "push", "frontend": "push", "security": "push" },
+      "codeowners": ["* @{org}/platform"]
+    },
+    {
+      "name": "ol-web-admin",
+      "description": "Frontend quản trị (React + Vite)",
+      "fromTemplate": true,
+      "teams": { "frontend": "maintain", "platform": "push" },
+      "codeowners": ["* @{org}/frontend", "/.github/ @{org}/platform"]
+    },
+    {
+      "name": "ol-bff",
+      "description": "Backend-for-Frontend: OIDC client, session, reverse proxy cho trình duyệt",
+      "fromTemplate": true,
+      "teams": { "backend": "maintain", "frontend": "push", "security": "push", "platform": "push" },
+      "codeowners": ["* @{org}/backend", "/src/modules/auth/ @{org}/backend @{org}/security", "/.github/ @{org}/platform"]
+    },
+    {
+      "name": "ol-iam-service",
+      "description": "IAM: tenant, membership, group, role, permission, audit, authorize API",
+      "fromTemplate": true,
+      "teams": { "backend": "maintain", "security": "push", "platform": "push" },
+      "codeowners": ["* @{org}/backend @{org}/security", "/.github/ @{org}/platform"]
+    },
+    {
+      "name": "ol-warehouse-service",
+      "description": "Service nghiệp vụ mẫu: danh mục hàng và tồn kho theo tenant",
+      "fromTemplate": true,
+      "teams": { "backend": "maintain", "platform": "push" },
+      "codeowners": ["* @{org}/backend", "/.github/ @{org}/platform"]
+    },
+    {
+      "name": "ol-node-kit",
+      "description": "Thư viện dùng chung: xác thực, phân quyền, logger, lỗi, config, OpenTelemetry",
+      "fromTemplate": true,
+      "teams": { "backend": "maintain", "security": "push", "platform": "push" },
+      "codeowners": ["* @{org}/backend", "/src/auth/ @{org}/backend @{org}/security", "/.github/ @{org}/platform"]
+    },
+    {
+      "name": "ol-build-tooling",
+      "description": "Dockerfile tập trung và reusable workflows build/test/scan/push",
+      "fromTemplate": true,
+      "teams": { "platform": "maintain", "backend": "push", "frontend": "push", "security": "push" },
+      "codeowners": ["* @{org}/platform", "/dockerfiles/ @{org}/platform @{org}/security"]
+    },
+    {
+      "name": "ol-infra",
+      "description": "Terraform, build-config, deploy config theo môi trường và workflow triển khai",
+      "fromTemplate": true,
+      "teams": { "platform": "maintain", "security": "push", "backend": "triage", "frontend": "triage" },
+      "codeowners": [
+        "* @{org}/platform",
+        "/infrastructure/ @{org}/platform @{org}/security",
+        "/build-config/prod/ @{org}/platform @{org}/security",
+        "/deploy/prod/ @{org}/platform @{org}/security"
+      ]
+    }
+  ]
+}

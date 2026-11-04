@@ -1,0 +1,21 @@
+{
+  "repo": "ol-infra",
+  "environments": [
+    {
+      "name": "dev",
+      "requireReviewers": false,
+      "branches": ["main"]
+    },
+    {
+      "name": "staging",
+      "requireReviewers": false,
+      "branches": ["main"]
+    },
+    {
+      "name": "production",
+      "requireReviewers": true,
+      "reviewerTeam": "platform",
+      "branches": ["main"]
+    }
+  ]
+}

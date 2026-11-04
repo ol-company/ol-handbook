@@ -1,0 +1,12 @@
+{
+  "_comment": "Check bắt buộc phải xanh trước khi merge vào main. Với reusable workflow, tên check = '<job gọi> / <name của job được gọi>'. Đối chiếu tên thật ở tab Checks của một PR rồi sửa file này nếu khác.",
+  "repos": {
+    "ol-node-kit": ["ci / quality", "security / secrets", "security / codeql", "security / trivy-fs", "security / dependency-review"],
+    "ol-iam-service": ["ci / quality", "security / secrets", "security / codeql", "security / trivy-fs", "security / dependency-review", "image-check / build-iam-service-dev"],
+    "ol-warehouse-service": ["ci / quality", "security / secrets", "security / codeql", "security / trivy-fs", "security / dependency-review", "image-check / build-warehouse-service-dev"],
+    "ol-bff": ["ci / quality", "security / secrets", "security / codeql", "security / trivy-fs", "security / dependency-review", "image-check / build-bff-dev"],
+    "ol-web-admin": ["ci / quality", "security / secrets", "security / codeql", "security / trivy-fs", "security / dependency-review", "image-check / build-web-admin-dev"],
+    "ol-build-tooling": ["lint", "build-keycloak", "security / secrets", "security / trivy-fs", "security / dependency-review"],
+    "ol-infra": ["config", "terraform", "security / secrets", "security / trivy-fs", "security / dependency-review", "plan-dev", "plan-staging", "plan-prod"]
+  }
+}
