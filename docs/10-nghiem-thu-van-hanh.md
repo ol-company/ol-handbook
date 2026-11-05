@@ -237,7 +237,8 @@ Mọi chuẩn đã có sẵn — thêm service là điền vào đúng chỗ:
 |---|---|
 | Kiến trúc, quyết định, mô hình quyền | Đã viết |
 | Script bootstrap GitHub (Bước 1) | Đã viết, kiểm tra cú pháp JSON/YAML; **chưa chạy** với org thật |
-| Hook commit (lefthook regex), `validate-build-config.sh` | Đã chạy thử trong môi trường soạn thảo — đạt |
+| Hook commit (`lefthook.yml` + `scripts/check-commit-msg.sh`) | Đã chạy thử trên Windows (Git Bash, Lefthook 2.2.2): message tiếng Việt/Anh hợp lệ được chấp nhận, message sai bị chặn — đạt |
+| `validate-build-config.sh` | Đã chạy thử trong môi trường soạn thảo — đạt |
 | Toàn bộ mã TypeScript (node-kit, IAM, warehouse, BFF, web-admin) | **Chưa biên dịch, chưa chạy test** (môi trường soạn thảo không truy cập được npm) |
 | Dockerfile, compose | **Chưa build** |
 | Terraform | **Chưa `init/validate/plan`** |

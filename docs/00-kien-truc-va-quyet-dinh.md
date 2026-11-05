@@ -441,7 +441,7 @@ Mọi số phiên bản cụ thể (patch) được pin ở Bước 2 bằng fil
 | Repo | Nội dung | Team chủ sở hữu |
 |---|---|---|
 | `.github` | Hồ sơ Organization, file cộng đồng mặc định (PR template, issue form, SECURITY, CONTRIBUTING) | platform |
-| `ol-repo-template` | Template cho repo mới: `.editorconfig`, `.gitattributes`, `.gitignore`, `lefthook.yml`, `dependabot.yml` | platform |
+| `ol-repo-template` | Template cho repo mới: `.editorconfig`, `.gitattributes`, `.gitignore`, `lefthook.yml`, `scripts/check-commit-msg.sh`, `dependabot.yml` | platform |
 | `ol-handbook` | Tài liệu này, ADR, runbook | platform |
 | `ol-web-admin` | Frontend quản trị | frontend |
 | `ol-bff` | Backend-for-Frontend | backend |
