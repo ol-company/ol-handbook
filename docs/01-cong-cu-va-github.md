@@ -68,7 +68,7 @@ Mức quyền repo theo thứ tự tăng dần: `pull` (đọc) → `triage` (qu
 - **Nghĩa là gì?** Repo được đánh dấu "template"; repo mới tạo từ nó nhận sẵn toàn bộ file ban đầu.
 - **Dùng thế nào?** `gh repo create <org>/<repo> --template <org>/ol-repo-template`.
 - **Thay thế bằng gì?** Copy tay; công cụ sinh dự án (Yeoman, cookiecutter).
-- **Lợi thế khi chọn?** Mọi repo mới có cùng `.editorconfig`, `.gitattributes`, `.gitignore`, `lefthook.yml`, `dependabot.yml` ngay từ commit đầu.
+- **Lợi thế khi chọn?** Mọi repo mới có cùng `.editorconfig`, `.gitattributes`, `.gitignore`, `lefthook.yml`, `scripts/check-commit-msg.sh`, `dependabot.yml` ngay từ commit đầu.
 - **Không dùng thì sao?** Mỗi repo cấu hình một kiểu — đúng điều bạn muốn tránh ("không để mỗi image/repo một kiểu").
 
 #### Repo `.github` của Organization
@@ -115,7 +115,7 @@ Mức quyền repo theo thứ tự tăng dần: `pull` (đọc) → `triage` (qu
 
 #### Lefthook
 - **Nghĩa là gì?** Trình quản lý Git hooks (một file nhị phân) chạy lệnh trước commit/push.
-- **Dùng thế nào?** File `lefthook.yml` trong repo; mỗi bản clone chạy `lefthook install` một lần.
+- **Dùng thế nào?** File `lefthook.yml` trong repo; mỗi bản clone chạy `lefthook install` một lần. Logic kiểm tra commit message nằm ở `scripts/check-commit-msg.sh` — không viết thẳng trong `lefthook.yml`, vì trên Windows Lefthook chạy `sh -c "..."` và dấu `"` trong script làm vỡ lệnh.
 - **Thay thế bằng gì?** Husky (cần Node trong repo), pre-commit (Python).
 - **Lợi thế khi chọn?** Không phụ thuộc Node → dùng được cả ở `ol-infra` (Terraform) và `ol-build-tooling`.
 - **Không dùng thì sao?** Lỗi định dạng commit và secret chỉ bị phát hiện ở CI, sau khi đã rời máy.
@@ -738,8 +738,9 @@ git reset --hard origin/main                  # Bỏ commit thử ở local
 Set-Location ..\ol-handbook
 git switch -c chore/add-lefthook
 Copy-Item ..\ol-warehouse-service\lefthook.yml .                         # Dùng chung cấu hình hook từ template
+Copy-Item ..\ol-warehouse-service\scripts -Destination . -Recurse         # Script kiểm tra commit message mà lefthook.yml gọi tới
 Copy-Item ..\ol-warehouse-service\.editorconfig, ..\ol-warehouse-service\.gitattributes .
-git add lefthook.yml .editorconfig .gitattributes
+git add lefthook.yml scripts .editorconfig .gitattributes
 git commit -m "chore(handbook): thêm git hooks và editorconfig"          # Commit được ký, qua hook
 git push -u origin chore/add-lefthook
 gh pr create --fill                                                     # Tạo PR, lấy tiêu đề từ commit
@@ -766,6 +767,7 @@ Khi cả 8 dòng đạt, cập nhật bảng lộ trình trong `README.md` của
 | `Permission denied (publickey)` khi push | Chưa tải key xác thực, hoặc Git dùng ssh khác | `gh ssh-key list`; kiểm tra `core.sshCommand` |
 | Commit trên GitHub hiện *Unverified* | Email commit khác email tài khoản, hoặc key chưa tải loại *signing* | `git config user.email` phải là email noreply; `gh ssh-key list` phải có dòng `signing` |
 | Hook không chạy | Chưa `lefthook install` sau khi clone | Chạy lại trong repo |
+| `-n1: -c: line 2: unexpected EOF while looking for matching ')'` ở hook `commit-msg` (xảy ra cả với message tiếng Anh) | `lefthook.yml` viết script nhiều dòng có dấu `"` trực tiếp trong `run:`; Lefthook trên Windows bọc vào `sh -c "..."` nên lệnh bị tách sai | Đưa logic ra `scripts/check-commit-msg.sh`, `run:` chỉ còn `sh scripts/check-commit-msg.sh {1}` (đã áp dụng trong template) |
 | `gitleaks: command not found` trong hook | Gitleaks không nằm trong PATH mà Git Bash thấy | Mở terminal mới sau khi cài; kiểm `where.exe gitleaks` |
 | Không ghi được CODEOWNERS khi chạy lại script | Ruleset đã bật, chặn ghi thẳng vào `main` | Bình thường. Sửa CODEOWNERS qua PR |
 | `sha_pinning_required` báo cảnh báo | API/gói chưa hỗ trợ trường này | Bật thủ công trong Org Settings → Actions nếu có tùy chọn; nếu không, Bước 5 thêm kiểm tra pin SHA bằng CI |
