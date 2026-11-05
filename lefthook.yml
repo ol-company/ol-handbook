@@ -1,0 +1,21 @@
+# Lefthook: quản lý Git hooks cho mọi repo OL-Platform.
+# Cài một lần cho mỗi bản clone: `lefthook install`
+# Tài liệu: https://lefthook.dev
+
+pre-commit:
+  commands:
+    # Quét bí mật trong các file đang được stage, chặn commit nếu phát hiện.
+    # --pre-commit --staged : chỉ quét phần thay đổi sắp commit
+    # --redact              : che giá trị bí mật trong log
+    # --verbose             : in chi tiết vị trí phát hiện
+    gitleaks:
+      run: gitleaks git --pre-commit --redact --staged --verbose
+
+commit-msg:
+  commands:
+    # Kiểm tra dòng đầu commit message theo Conventional Commits.
+    # {1} là đường dẫn file chứa commit message do Git truyền vào hook.
+    # Logic nằm trong scripts/check-commit-msg.sh: viết thẳng ở đây thì dấu " trong script
+    # làm vỡ lệnh `sh -c` của Lefthook trên Windows.
+    conventional-commits:
+      run: sh scripts/check-commit-msg.sh {1}
